@@ -1,0 +1,9 @@
+WITH CTE AS (
+select *, SUM(Weight) OVER( Order by turn ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS TOTAL 
+from Queue)
+
+SELECT person_name
+FROM CTE
+WHERE TOTAL<=1000
+order by TOTAL DESC
+LIMIT 1
